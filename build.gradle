@@ -18,5 +18,11 @@ repositories {
 
 dependencies {
     compile group: 'javax.media', name: 'jmf', version: '2.1.1e'
-    compile (name:'mp3plugin', ext:'jar')
+    compile name: 'mp3plugin', ext: 'jar'
+    compile name: 'lm_api_mc1.8.9', ext: 'jar'
+// https://mvnrepository.com/artifact/javazoom/jlayer
+    compile group: 'javazoom', name: 'jlayer', version: '1.0.1'
+
+
+
 }

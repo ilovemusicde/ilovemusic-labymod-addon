@@ -1,0 +1,5 @@
+{
+  "uuid": "%uuid%",
+  "name": "ILoveMusicAddon",
+  "mainClass": "com.ilovemusic.labymod.ILoveMusicAddon"
+}
