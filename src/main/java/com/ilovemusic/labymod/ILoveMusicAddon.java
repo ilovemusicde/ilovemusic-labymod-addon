@@ -5,8 +5,6 @@ import net.labymod.api.LabyModAddon;
 import net.labymod.settings.elements.SettingsElement;
 
 public final class ILoveMusicAddon extends LabyModAddon {
-
-
   @Override
   public void onEnable() {
 
