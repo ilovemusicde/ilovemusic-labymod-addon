@@ -14,3 +14,5 @@ inbuilt `mpeg` support was removed. Additionally it was even older than `JavaLay
 JavaLayer is a library by JavaZoom for decoding and playing mpeg sound. It has some downsides:
 - Volume Management is ugly and has to be done via reflections (wtf?)
 - It's required to be in classpath as an external library
+
+### 

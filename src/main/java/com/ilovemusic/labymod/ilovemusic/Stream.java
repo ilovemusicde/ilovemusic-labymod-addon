@@ -1,4 +1,4 @@
-package com.ilovemusic.labymod;
+package com.ilovemusic.labymod.ilovemusic;
 
 import com.google.gson.annotations.SerializedName;
 import java.net.URL;
