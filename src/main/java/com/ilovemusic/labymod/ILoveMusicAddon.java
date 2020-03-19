@@ -35,7 +35,7 @@ public final class ILoveMusicAddon extends LabyModAddon {
 
     this.getApi().registerModule(iLoveMusicGuiModule);
     Tabs.getTabUpdateListener().add(tabs -> {
-      tabs.put("ILoveMusic", new Class[]{ILoveMusicGuiScreen.class});
+      tabs.put("ILoveMusic <33", new Class[]{ILoveMusicGuiScreen.class});
     });
   }
 
@@ -50,7 +50,6 @@ public final class ILoveMusicAddon extends LabyModAddon {
 
     settings.add(new HeaderElement("Einstellungen"));
     settings.add(new ControlElement("Einstellung Demo", new IconData()));
-    settings.add(new SliderElement("Lautstärke", new IconData(Material.NOTE_BLOCK)));
 
     try {
       List<Stream> streams = streamRepository.findAll().get();
