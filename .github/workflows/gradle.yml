@@ -24,3 +24,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload laby mod mod artifact
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: ilovemusic-labymod-addon
+        path: build/libs/*
