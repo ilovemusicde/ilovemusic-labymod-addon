@@ -1,6 +1,9 @@
 # ilovemusic-labymod-addon
 Simple LabyMod Addon for playing I Love Music in Minecraft.
 
+## Build Status
+![Java CI with Gradle](https://github.com/klauke-enterprises/ilovemusic-labymod-addon/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)
+
 ## Usage
 
 ## Example
