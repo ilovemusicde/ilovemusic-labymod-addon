@@ -35,7 +35,7 @@ public final class ILoveMusicAddon extends LabyModAddon {
 
     this.getApi().registerModule(iLoveMusicGuiModule);
     Tabs.getTabUpdateListener().add(tabs -> {
-      tabs.put("ILoveMusic <33", new Class[]{ILoveMusicGuiScreen.class});
+      tabs.put("ILoveMusic", new Class[]{ILoveMusicGuiScreen.class});
     });
   }
 

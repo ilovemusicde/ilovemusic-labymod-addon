@@ -9,7 +9,7 @@ import net.labymod.ingamegui.Module;
 import net.labymod.settings.elements.ControlElement.IconData;
 import net.labymod.utils.Material;
 
-public class ILoveMusicGuiModule extends Module {
+public final class ILoveMusicGuiModule extends Module {
   @Override
   public IconData getIconData() {
     return new IconData(Material.NOTE_BLOCK);

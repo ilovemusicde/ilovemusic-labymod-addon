@@ -7,10 +7,13 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
 import com.ilovemusic.labymod.ilovemusic.ILoveMusicClient;
+import com.ilovemusic.labymod.ilovemusic.ILoveMusicGuiScreen;
 import com.ilovemusic.labymod.ilovemusic.StreamResponse;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
+import net.labymod.main.LabyMod;
+import net.labymod.utils.DrawUtils;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,6 +27,7 @@ public final class ILoveMusicModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    requestStaticInjection(ILoveMusicGuiScreen.class);
   }
 
   @Provides
@@ -326,6 +330,12 @@ public final class ILoveMusicModule extends AbstractModule {
     return new OkHttpClient.Builder()
         .callTimeout(10, TimeUnit.SECONDS)
         .build();
+  }
+
+  @Provides
+  @Singleton
+  DrawUtils providesDrawUtils() {
+    return LabyMod.getInstance().getDrawUtils();
   }
 
   public static ILoveMusicModule create(String iLoveMusicApiBaseUrl) {

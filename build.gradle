@@ -45,6 +45,8 @@ dependencies {
 
     // JLayer is used for playing music
     provided 'javazoom:jlayer:1.0.1'
+    provided group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'
+
 
     // Retrofit for fetching streams from ILoveMusic REST API
     provided 'com.squareup.retrofit2:retrofit:2.6.0'
