@@ -17,10 +17,11 @@ public final class DownloadedTexture extends AbstractTexture {
 
   @Override
   public void loadTexture(IResourceManager resourceManager) throws IOException {
-    InputStream inputStream = openInputStream(resourceLocation);
-    BufferedImage image = TextureUtil.readBufferedImage(inputStream);
-    int glTextureId = getGlTextureId();
-    TextureUtil.uploadTextureImageAllocate(glTextureId, image, false, false);
+    try (InputStream inputStream = openInputStream(resourceLocation)) {
+      BufferedImage image = TextureUtil.readBufferedImage(inputStream);
+      int glTextureId = getGlTextureId();
+      TextureUtil.uploadTextureImageAllocate(glTextureId, image, false, false);
+    }
   }
 
   private InputStream openInputStream(URL url) throws IOException {

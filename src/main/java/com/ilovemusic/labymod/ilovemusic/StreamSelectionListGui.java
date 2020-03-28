@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
 
 public final class StreamSelectionListGui extends GuiListExtended {
-
   private StreamSelectionListEntry selected;
   private List<StreamSelectionListEntry> entryList;
 

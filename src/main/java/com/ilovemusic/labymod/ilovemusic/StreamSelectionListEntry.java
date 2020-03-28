@@ -48,21 +48,36 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
       int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
       int mouseY, boolean isHovered, float partialTicks
   ) {
-    mc.fontRenderer.drawString(stream.name(), x + 32 + 3, y + 1,
-        Integer.parseInt(stream.color().substring(1), 16));
-
-    int fontHeigth = mc.fontRenderer.FONT_HEIGHT;
-    List<String> titleLines = mc.fontRenderer
-        .listFormattedStringToWidth(stream.artist() + " - " + stream.title(), listWidth - 32 - 2);
-
-    int index = 0;
-    for (String titelLine : titleLines) {
-      mc.fontRenderer.drawString(titelLine, x + 32 + 3, y + 12 + fontHeigth * index++, 0x808080);
-    }
-
+    drawStreamName(x, y);
+    drawStreamArtist(x, y, listWidth);
     drawStreamIcon(x, y);
-
     loadImage();
+  }
+
+  private void drawStreamArtist(int x, int y, int listWidth) {
+    int fontHeigth = mc.fontRenderer.FONT_HEIGHT;
+    List<String> titleLines = mc.fontRenderer.listFormattedStringToWidth(
+        stream.artist() + " - " + stream.title(),
+        listWidth - 32 - 2
+    );
+    for (int currentIndex = 0; currentIndex < titleLines.size(); currentIndex++) {
+      String titelLine = titleLines.get(currentIndex);
+      mc.fontRenderer.drawString(
+          titelLine,
+          x + 32 + 3,
+          y + 12 + fontHeigth * currentIndex++,
+          0x808080
+      );
+    }
+  }
+
+  private void drawStreamName(int x, int y) {
+    mc.fontRenderer.drawString(
+        stream.name(),
+        x + 32 + 3,
+        y + 1,
+        Integer.parseInt(stream.color().substring(1), 16)
+    );
   }
 
   private void loadImage() {
