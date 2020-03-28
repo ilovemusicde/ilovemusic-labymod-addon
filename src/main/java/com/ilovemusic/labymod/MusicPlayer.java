@@ -1,62 +1,64 @@
 package com.ilovemusic.labymod;
 
 import com.google.common.base.Preconditions;
+import com.ilovemusic.labymod.player.BasicPlayer;
+import com.ilovemusic.labymod.player.BasicPlayerException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.advanced.AdvancedPlayer;
 
 @Singleton
 public final class MusicPlayer {
-  private final Lock lock = new ReentrantLock();
-  private AdvancedPlayer currentPlayer;
+  private final BasicPlayer basicPlayer = new BasicPlayer();
 
   @Inject
   private MusicPlayer() {
-
   }
 
-  public void play() {
+  public synchronized void play() {
     try {
-      currentPlayer.play();
-    } catch (JavaLayerException e) {
+      basicPlayer.resume();
+    } catch (BasicPlayerException e) {
       e.printStackTrace();
     }
   }
 
-  public void play(URL url) {
+  public boolean isPlaying() {
+    return basicPlayer.getStatus() == BasicPlayer.PLAYING;
+  }
+
+  public void setVolume(double gain) {
+    try {
+      basicPlayer.pause();
+      basicPlayer.setGain(gain);
+      basicPlayer.resume();
+    } catch (BasicPlayerException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public float getVolume() {
+    return basicPlayer.getGainValue();
+  }
+
+  public synchronized void play(URL url) {
     Preconditions.checkNotNull(url);
-    lock.lock();
-    if (currentPlayer != null) {
-      stopLocked();
+    try {
+      basicPlayer.stop();
+      basicPlayer.open(url.openStream());
+      basicPlayer.play();
+    } catch (BasicPlayerException | IOException e) {
+      e.printStackTrace();
     }
-    new Thread(() -> {
-      try {
-        currentPlayer = new AdvancedPlayer(url.openStream());
-        currentPlayer.play();
-      } catch (JavaLayerException | IOException e) {
-        e.printStackTrace();
-      }
-      lock.unlock();
-    }).start();
   }
 
-  public void stop() {
-    lock.lock();
-    if (currentPlayer == null) {
-      lock.unlock();
-      return;
+  public synchronized void stop() {
+    try {
+      basicPlayer.pause();
+    } catch (BasicPlayerException e) {
+      e.printStackTrace();
     }
-    stopLocked();
-    lock.unlock();
-  }
-
-  private void stopLocked() {
-    currentPlayer.stop();
-    currentPlayer.close();
   }
 }

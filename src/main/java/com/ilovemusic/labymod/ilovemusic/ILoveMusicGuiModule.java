@@ -32,18 +32,7 @@ public final class ILoveMusicGuiModule extends Module {
 
   @Override
   public void onMouseClick(int mouseX, int mouseY, int mouseButton) {
-    URL url = null;
-    try {
-      url = new URL("http://streams.ilovemusic.de/iloveradio1.mp3");
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
-    try {
-      AdvancedPlayer advancedPlayer = new AdvancedPlayer(url.openStream());
-      advancedPlayer.play();
-    } catch (JavaLayerException | IOException e) {
-      e.printStackTrace();
-    }
+
   }
 
   @Override

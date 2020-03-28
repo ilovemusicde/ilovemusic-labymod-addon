@@ -44,7 +44,8 @@ dependencies {
     implementation name: 'lm_api_mc1.8.9', ext: 'jar'
 
     // JLayer is used for playing music
-    provided 'javazoom:jlayer:1.0.1'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
     provided group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'
 
 

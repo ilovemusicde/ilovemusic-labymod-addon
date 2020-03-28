@@ -1,8 +1,11 @@
 package com.ilovemusic.labymod.ilovemusic;
 
+import com.ilovemusic.labymod.MusicPlayer;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
@@ -10,6 +13,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
 public final class StreamSelectionListEntry implements IGuiListEntry {
+  private static final List<String> LOADED_TEXTURES = new ArrayList<>();
+
+  @Inject
+  private static MusicPlayer musicPlayer;
   private final StreamSelectionListGui parent;
   private final Minecraft mc = Minecraft.getMinecraft();
   private final ResourceLocation textureKey;
@@ -21,20 +28,13 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   ) {
     this.parent = parent;
     this.stream = stream;
-    this.textureKey = new ResourceLocation("ilovemusic", "streampicture." + stream.id());
-    try {
-      prepareImage();
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
+    this.textureKey = new ResourceLocation("ilovemusic", "streampicture." + stream.id() + "." + stream.cover().hashCode());
   }
 
   public void prepareImage() throws MalformedURLException {
-    // kein caching
-    mc.getTextureManager().loadTexture(
-        textureKey,
-        new DownloadedTexture(new URL(stream.cover()))
-    );
+    URL resourceLocation = new URL(stream.cover());
+    DownloadedTexture downloadedTexture = new DownloadedTexture(resourceLocation);
+    mc.getTextureManager().loadTexture(textureKey, downloadedTexture);
   }
 
   @Override
@@ -58,6 +58,20 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
     }
 
     drawStreamIcon(x, y);
+
+    loadImage();
+  }
+
+  private void loadImage() {
+    if (LOADED_TEXTURES.contains(textureKey.getPath())) {
+      return;
+    }
+    try {
+      prepareImage();
+      LOADED_TEXTURES.add(textureKey.getPath());
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -66,7 +80,7 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
       int relativeY
   ) {
     parent.setSelected(this);
-    // TODO: Play music
+    musicPlayer.play(stream.streamUrl());
     return false;
   }
 

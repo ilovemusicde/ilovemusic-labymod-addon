@@ -7,12 +7,20 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.swing.JOptionPane;
 import net.labymod.gui.elements.Tabs;
+import net.labymod.main.LabyMod;
 import net.labymod.utils.DrawUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiPageButtonList.GuiResponder;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiSlider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class ILoveMusicGuiScreen extends GuiScreen {
+  private final Logger log = LogManager.getLogger("ILoveMusic");
   @Inject
   private static MusicPlayer musicPlayer;
   @Inject
@@ -20,7 +28,9 @@ public final class ILoveMusicGuiScreen extends GuiScreen {
   @Inject
   private static StreamRepository streamRepository;
 
-  private Stream selectedStream;
+  private GuiSlider VOLUME_SLIDER;
+  private GuiButton START_BUTTON;
+  private GuiButton STOP_BUTTON;
 
   private StreamSelectionListGui streamSelection;
 
@@ -33,11 +43,32 @@ public final class ILoveMusicGuiScreen extends GuiScreen {
 
     Tabs.initGuiScreen(this.buttonList, this);
 
-    GuiButton startButton = new GuiButton(0xC0DE_1, this.width / 2 - 74, this.height - 28, 70, 20,
-        "Start");
-    startButton.enabled = false;
-    addButton(startButton);
-    addButton(new GuiButton(0xC0DE_2, this.width / 2 + 4, this.height - 28, 70, 20,"Stop"));
+    VOLUME_SLIDER = new GuiSlider(new GuiResponder() {
+      @Override
+      public void setEntryValue(int id, boolean value) {
+      }
+
+      @Override
+      public void setEntryValue(int id, float value) {
+        log.info((value / 100) + "");
+        musicPlayer.setVolume((value / 100));
+      }
+
+      @Override
+      public void setEntryValue(int id, String value) {
+      }
+    }, 0xC0DE_0, this.width / 2 - 74, this.height - 52, "Lautstärke", 0, 100, musicPlayer.getVolume(),
+        (id, name, value) -> String.valueOf((int) value));
+
+    START_BUTTON = new GuiButton(0xC0DE_1, this.width / 2 - 74, this.height - 28, 70, 20, "Start");
+    STOP_BUTTON = new GuiButton(0xC0DE_2, this.width / 2 + 4, this.height - 28, 70, 20,"Stop");
+
+    START_BUTTON.enabled = !musicPlayer.isPlaying();
+    STOP_BUTTON.enabled = musicPlayer.isPlaying();
+
+    addButton(START_BUTTON);
+    addButton(STOP_BUTTON);
+    addButton(VOLUME_SLIDER);
   }
 
   private List<StreamSelectionListEntry> createStreamEntries() {
@@ -107,11 +138,14 @@ public final class ILoveMusicGuiScreen extends GuiScreen {
 
       switch (buttonId) {
         case 0xC0DE1: //started
-          musicPlayer.play(selectedStream.streamUrl());
+          musicPlayer.play();
           break;
         case 0xC0DE2: //stopped
           musicPlayer.stop();
           break;
       }
+
+    START_BUTTON.enabled = !musicPlayer.isPlaying();
+    STOP_BUTTON.enabled = musicPlayer.isPlaying();
   }
 }

@@ -1,6 +1,7 @@
 package com.ilovemusic.labymod.ilovemusic;
 
 import com.google.gson.annotations.SerializedName;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public final class Stream {
@@ -64,7 +65,11 @@ public final class Stream {
   }
 
   public URL streamUrl() {
-    return streamUrl;
+    try {
+      return new URL(streamUrl.toString().replace("https://", "http://"));
+    } catch (MalformedURLException e) {
+      return streamUrl;
+    }
   }
 
   @Override
