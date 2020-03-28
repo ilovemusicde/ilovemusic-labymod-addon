@@ -1,10 +1,5 @@
 package com.ilovemusic.labymod.ilovemusic;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.advanced.AdvancedPlayer;
 import net.labymod.ingamegui.Module;
 import net.labymod.settings.elements.ControlElement.IconData;
 import net.labymod.utils.Material;

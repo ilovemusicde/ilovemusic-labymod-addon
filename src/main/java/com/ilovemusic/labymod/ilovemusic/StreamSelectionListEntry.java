@@ -23,12 +23,13 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   private final Stream stream;
 
   public StreamSelectionListEntry(
-    StreamSelectionListGui parent,
-    Stream stream
+      StreamSelectionListGui parent,
+      Stream stream
   ) {
     this.parent = parent;
     this.stream = stream;
-    this.textureKey = new ResourceLocation("ilovemusic", "streampicture." + stream.id() + "." + stream.cover().hashCode());
+    this.textureKey = new ResourceLocation("ilovemusic",
+        "streampicture." + stream.id() + "." + stream.cover().hashCode());
   }
 
   public void prepareImage() throws MalformedURLException {
@@ -47,10 +48,12 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
       int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
       int mouseY, boolean isHovered, float partialTicks
   ) {
-    mc.fontRenderer.drawString(stream.name(), x + 32 + 3, y + 1, Integer.parseInt(stream.color().substring(1), 16));
+    mc.fontRenderer.drawString(stream.name(), x + 32 + 3, y + 1,
+        Integer.parseInt(stream.color().substring(1), 16));
 
     int fontHeigth = mc.fontRenderer.FONT_HEIGHT;
-    List<String> titleLines = mc.fontRenderer.listFormattedStringToWidth(stream.artist() + " - " + stream.title(), listWidth - 32 - 2);
+    List<String> titleLines = mc.fontRenderer
+        .listFormattedStringToWidth(stream.artist() + " - " + stream.title(), listWidth - 32 - 2);
 
     int index = 0;
     for (String titelLine : titleLines) {

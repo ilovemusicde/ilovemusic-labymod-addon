@@ -1,7 +1,5 @@
 package com.ilovemusic.labymod.ilovemusic;
 
-import com.google.common.collect.ImmutableList;
-import java.io.InputStream;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;

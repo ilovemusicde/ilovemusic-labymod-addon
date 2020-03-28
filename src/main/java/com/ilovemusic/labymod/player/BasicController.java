@@ -1,6 +1,6 @@
 /*
  * BasicController.
- * 
+ *
  * JavaZOOM : jlgui@javazoom.net
  *            http://www.javazoom.net
  *
@@ -27,76 +27,83 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * This interface defines player controls available.  
+ * This interface defines player controls available.
  */
-public interface BasicController
-{
-    /**
-     * Open inputstream to play.
-     * @param in
-     * @throws BasicPlayerException
-     */
-    public void open(InputStream in) throws BasicPlayerException;
+public interface BasicController {
+  /**
+   * Open inputstream to play.
+   *
+   * @param in
+   * @throws BasicPlayerException
+   */
+  void open(InputStream in) throws BasicPlayerException;
 
-    /**
-     * Open file to play.
-     * @param file
-     * @throws BasicPlayerException
-     */
-    public void open(File file) throws BasicPlayerException;
+  /**
+   * Open file to play.
+   *
+   * @param file
+   * @throws BasicPlayerException
+   */
+  void open(File file) throws BasicPlayerException;
 
-    /**
-     * Open URL to play.
-     * @param url
-     * @throws BasicPlayerException
-     */
-    public void open(URL url) throws BasicPlayerException;
+  /**
+   * Open URL to play.
+   *
+   * @param url
+   * @throws BasicPlayerException
+   */
+  void open(URL url) throws BasicPlayerException;
 
-    /**
-     * Skip bytes.
-     * @param bytes
-     * @return bytes skipped according to audio frames constraint.
-     * @throws BasicPlayerException
-     */
-    public long seek(long bytes) throws BasicPlayerException;
+  /**
+   * Skip bytes.
+   *
+   * @param bytes
+   * @return bytes skipped according to audio frames constraint.
+   * @throws BasicPlayerException
+   */
+  long seek(long bytes) throws BasicPlayerException;
 
-    /**
-     * Start playback.
-     * @throws BasicPlayerException
-     */
-    public void play() throws BasicPlayerException;
+  /**
+   * Start playback.
+   *
+   * @throws BasicPlayerException
+   */
+  void play() throws BasicPlayerException;
 
-    /**
-     * Stop playback.
-     * @throws BasicPlayerException
-     */
-    public void stop() throws BasicPlayerException;
+  /**
+   * Stop playback.
+   *
+   * @throws BasicPlayerException
+   */
+  void stop() throws BasicPlayerException;
 
-    /**
-     * Pause playback.
-     * @throws BasicPlayerException
-     */
-    public void pause() throws BasicPlayerException;
+  /**
+   * Pause playback.
+   *
+   * @throws BasicPlayerException
+   */
+  void pause() throws BasicPlayerException;
 
-    /**
-     * Resume playback.
-     * @throws BasicPlayerException
-     */
-    public void resume() throws BasicPlayerException;
+  /**
+   * Resume playback.
+   *
+   * @throws BasicPlayerException
+   */
+  void resume() throws BasicPlayerException;
 
-    /**
-     * Sets Pan (Balance) value.
-     * Linear scale : -1.0 <--> +1.0
-     * @param pan value from -1.0 to +1.0
-     * @throws BasicPlayerException
-     */
-    public void setPan(double pan) throws BasicPlayerException;
+  /**
+   * Sets Pan (Balance) value. Linear scale : -1.0 <--> +1.0
+   *
+   * @param pan value from -1.0 to +1.0
+   * @throws BasicPlayerException
+   */
+  void setPan(double pan) throws BasicPlayerException;
 
-    /**
-     * Sets Gain value.
-     * Linear scale 0.0  <-->  1.0
-     * @param gain value from 0.0 to 1.0
-     * @throws BasicPlayerException
-     */
-    public void setGain(double gain) throws BasicPlayerException;
+  /**
+   * Sets Gain value. Linear scale 0.0  <-->  1.0
+   *
+   * @param gain value from 0.0 to 1.0
+   * @throws BasicPlayerException
+   */
+  void setGain(double gain) throws BasicPlayerException;
 }

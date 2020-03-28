@@ -5,12 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.TypeLiteral;
 import com.ilovemusic.labymod.ilovemusic.ILoveMusicClient;
 import com.ilovemusic.labymod.ilovemusic.ILoveMusicGuiScreen;
-import com.ilovemusic.labymod.ilovemusic.StreamResponse;
 import com.ilovemusic.labymod.ilovemusic.StreamSelectionListEntry;
-import java.util.concurrent.CompletableFuture;
+import com.ilovemusic.labymod.player.BasicPlayer;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import net.labymod.main.LabyMod;
@@ -26,10 +24,21 @@ public final class ILoveMusicModule extends AbstractModule {
     this.iLoveMusicApiBaseUrl = iLoveMusicApiBaseUrl;
   }
 
+  public static ILoveMusicModule create(String iLoveMusicApiBaseUrl) {
+    Preconditions.checkNotNull(iLoveMusicApiBaseUrl);
+    return new ILoveMusicModule(iLoveMusicApiBaseUrl);
+  }
+
   @Override
   protected void configure() {
     requestStaticInjection(ILoveMusicGuiScreen.class);
     requestStaticInjection(StreamSelectionListEntry.class);
+  }
+
+  @Provides
+  @Singleton
+  BasicPlayer provideBasicPlayer() {
+    return new BasicPlayer();
   }
 
   @Provides
@@ -75,10 +84,5 @@ public final class ILoveMusicModule extends AbstractModule {
   @Singleton
   DrawUtils providesDrawUtils() {
     return LabyMod.getInstance().getDrawUtils();
-  }
-
-  public static ILoveMusicModule create(String iLoveMusicApiBaseUrl) {
-    Preconditions.checkNotNull(iLoveMusicApiBaseUrl);
-    return new ILoveMusicModule(iLoveMusicApiBaseUrl);
   }
 }

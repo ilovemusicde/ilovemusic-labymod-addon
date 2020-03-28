@@ -4,17 +4,17 @@ import com.google.common.base.Preconditions;
 import com.ilovemusic.labymod.player.BasicPlayer;
 import com.ilovemusic.labymod.player.BasicPlayerException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 public final class MusicPlayer {
-  private final BasicPlayer basicPlayer = new BasicPlayer();
+  private final BasicPlayer basicPlayer;
 
   @Inject
-  private MusicPlayer() {
+  private MusicPlayer(BasicPlayer basicPlayer) {
+    this.basicPlayer = basicPlayer;
   }
 
   public synchronized void play() {
@@ -29,6 +29,10 @@ public final class MusicPlayer {
     return basicPlayer.getStatus() == BasicPlayer.PLAYING;
   }
 
+  public float getVolume() {
+    return basicPlayer.getGainValue();
+  }
+
   public void setVolume(double gain) {
     try {
       basicPlayer.pause();
@@ -37,10 +41,6 @@ public final class MusicPlayer {
     } catch (BasicPlayerException e) {
       e.printStackTrace();
     }
-  }
-
-  public float getVolume() {
-    return basicPlayer.getGainValue();
   }
 
   public synchronized void play(URL url) {

@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
-import javax.swing.JOptionPane;
 import net.labymod.gui.elements.Tabs;
-import net.labymod.main.LabyMod;
 import net.labymod.utils.DrawUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiPageButtonList.GuiResponder;
 import net.minecraft.client.gui.GuiScreen;
@@ -20,14 +17,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class ILoveMusicGuiScreen extends GuiScreen {
-  private final Logger log = LogManager.getLogger("ILoveMusic");
   @Inject
   private static MusicPlayer musicPlayer;
   @Inject
   private static DrawUtils drawUtils;
   @Inject
   private static StreamRepository streamRepository;
-
+  private final Logger log = LogManager.getLogger("ILoveMusic");
   private GuiSlider VOLUME_SLIDER;
   private GuiButton START_BUTTON;
   private GuiButton STOP_BUTTON;
@@ -38,7 +34,8 @@ public final class ILoveMusicGuiScreen extends GuiScreen {
   public void initGui() {
     super.initGui();
     List<StreamSelectionListEntry> streamSelectionListEntries = new ArrayList<>();
-    this.streamSelection = new StreamSelectionListGui(mc, width, height, 32, height - 64, 36, streamSelectionListEntries);
+    this.streamSelection = new StreamSelectionListGui(mc, width, height, 32, height - 64, 36,
+        streamSelectionListEntries);
     streamSelectionListEntries.addAll(createStreamEntries());
 
     Tabs.initGuiScreen(this.buttonList, this);
@@ -57,11 +54,12 @@ public final class ILoveMusicGuiScreen extends GuiScreen {
       @Override
       public void setEntryValue(int id, String value) {
       }
-    }, 0xC0DE_0, this.width / 2 - 74, this.height - 52, "Lautstärke", 0, 100, musicPlayer.getVolume(),
+    }, 0xC0DE_0, this.width / 2 - 74, this.height - 52, "Lautstärke", 0, 100,
+        musicPlayer.getVolume(),
         (id, name, value) -> String.valueOf((int) value));
 
     START_BUTTON = new GuiButton(0xC0DE_1, this.width / 2 - 74, this.height - 28, 70, 20, "Start");
-    STOP_BUTTON = new GuiButton(0xC0DE_2, this.width / 2 + 4, this.height - 28, 70, 20,"Stop");
+    STOP_BUTTON = new GuiButton(0xC0DE_2, this.width / 2 + 4, this.height - 28, 70, 20, "Stop");
 
     START_BUTTON.enabled = !musicPlayer.isPlaying();
     STOP_BUTTON.enabled = musicPlayer.isPlaying();
@@ -127,23 +125,23 @@ public final class ILoveMusicGuiScreen extends GuiScreen {
 
   @Override
   protected void actionPerformed(GuiButton button) throws IOException {
-      super.actionPerformed(button);
-      Tabs.actionPerformedButton(button);
+    super.actionPerformed(button);
+    Tabs.actionPerformedButton(button);
 
-      int buttonId = button.id;
+    int buttonId = button.id;
 
-      if(!button.enabled) {
-        return;
-      }
+    if (!button.enabled) {
+      return;
+    }
 
-      switch (buttonId) {
-        case 0xC0DE1: //started
-          musicPlayer.play();
-          break;
-        case 0xC0DE2: //stopped
-          musicPlayer.stop();
-          break;
-      }
+    switch (buttonId) {
+      case 0xC0DE1: //started
+        musicPlayer.play();
+        break;
+      case 0xC0DE2: //stopped
+        musicPlayer.stop();
+        break;
+    }
 
     START_BUTTON.enabled = !musicPlayer.isPlaying();
     STOP_BUTTON.enabled = musicPlayer.isPlaying();
