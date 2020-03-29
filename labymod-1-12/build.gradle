@@ -40,6 +40,7 @@ dependencies {
 }
 
 jar {
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/LICENSE', 'META-INF/NOTICE'
     from configurations.provided.asFileTree.files.collect {
         zipTree(it)
     }

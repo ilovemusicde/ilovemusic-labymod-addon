@@ -1,43 +1,40 @@
 package com.ilovemusic.labymod;
 
-import com.google.gson.annotations.SerializedName;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public final class Stream {
-  @SerializedName("channel_id")
-  private final int id;
+  private final int channel_id;
   private final String name;
   private final String artist;
   private final String title;
   private final String cover;
   private final String color;
   private final String fontcolor;
-  @SerializedName("stream_url")
-  private final URL streamUrl;
+  private final String stream_url;
 
   public Stream(
-      int id,
+      int channel_id,
       String name,
       String artist,
       String title,
       String cover,
       String color,
       String fontcolor,
-      URL streamUrl
+      String stream_url
   ) {
-    this.id = id;
+    this.channel_id = channel_id;
     this.name = name;
     this.artist = artist;
     this.title = title;
     this.cover = cover;
     this.color = color;
     this.fontcolor = fontcolor;
-    this.streamUrl = streamUrl;
+    this.stream_url = stream_url;
   }
 
   public int id() {
-    return id;
+    return channel_id;
   }
 
   public String name() {
@@ -66,23 +63,23 @@ public final class Stream {
 
   public URL streamUrl() {
     try {
-      return new URL(streamUrl.toString().replace("https://", "http://"));
+      return new URL(stream_url.toString().replace("https://", "http://"));
     } catch (MalformedURLException e) {
-      return streamUrl;
+      return null;
     }
   }
 
   @Override
   public String toString() {
     final StringBuilder sb = new StringBuilder("Stream{");
-    sb.append("id=").append(id);
+    sb.append("id=").append(channel_id);
     sb.append(", name='").append(name).append('\'');
     sb.append(", artist='").append(artist).append('\'');
     sb.append(", title='").append(title).append('\'');
     sb.append(", cover='").append(cover).append('\'');
     sb.append(", color='").append(color).append('\'');
     sb.append(", fontcolor='").append(fontcolor).append('\'');
-    sb.append(", streamUrl=").append(streamUrl);
+    sb.append(", streamUrl=").append(stream_url);
     sb.append('}');
     return sb.toString();
   }
