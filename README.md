@@ -18,8 +18,8 @@ FORGE_MAPPINGS=stable_20
 
 #### LabyMod 1.12
 ```text
-FORGE_VERSION="1.12.2-14.23.0.2512"
-FORGE_MAPPINGS="stable_39"
+FORGE_VERSION=1.12.2-14.23.0.2512
+FORGE_MAPPINGS=stable_39
 ```
 
 ## Example
