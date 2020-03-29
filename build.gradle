@@ -21,6 +21,8 @@ archivesBaseName = "modid"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+srcCompat = JavaVersion.VERSION_1_8
+targetCompat = JavaVersion.VERSION_1_8
 
 repositories {
     google()
