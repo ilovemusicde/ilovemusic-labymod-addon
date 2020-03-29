@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: System.getenv("FORGE_VERSION") != null ? (System.getenv("FORGE_VERSION").startsWith("1.8") ? '2.1-SNAPSHOT' : '2.3-SNAPSHOT') : '2.3-SNAPSHOT'
     }
 }
 
