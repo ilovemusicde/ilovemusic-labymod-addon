@@ -56,7 +56,7 @@ public final class ILoveMusicGuiScreen extends GuiScreen implements Observer, Gu
   private void updateStreams() {
     streamRepository.findAll().thenAccept(streams -> {
       for (int i = 0; i < streamSelection.getSize(); i++) {
-        IGuiListEntry listEntry = streamSelection.getListEntry(0);
+        IGuiListEntry listEntry = streamSelection.getListEntry(i);
         if (listEntry instanceof StreamSelectionListEntry) {
           Stream stream = ((StreamSelectionListEntry) listEntry).stream();
           Optional<Stream> first = streams.stream().filter(stream1 -> stream1.id() == stream.id()).findFirst();
