@@ -11,8 +11,11 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class StreamSelectionListEntry implements IGuiListEntry {
+  private final Logger log = LogManager.getLogger("ILoveMusic");
   private static final List<String> LOADED_TEXTURES = new ArrayList<>();
 
   @Inject
@@ -49,12 +52,12 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
       int mouseY, boolean isHovered, float partialTicks
   ) {
     drawStreamName(x, y);
-    drawStreamArtist(x, y, listWidth);
+    drawStreamArtistAndSong(x, y, listWidth);
     drawStreamIcon(x, y);
     loadImage();
   }
 
-  private void drawStreamArtist(int x, int y, int listWidth) {
+  private void drawStreamArtistAndSong(int x, int y, int listWidth) {
     int fontHeigth = mc.fontRenderer.FONT_HEIGHT;
     List<String> titleLines = mc.fontRenderer.listFormattedStringToWidth(
         stream.artist() + " - " + stream.title(),
@@ -65,7 +68,7 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
       mc.fontRenderer.drawString(
           titelLine,
           x + 32 + 3,
-          y + 12 + fontHeigth * currentIndex++,
+          y + 12 + fontHeigth * currentIndex,
           0x808080
       );
     }
