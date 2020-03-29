@@ -46,3 +46,8 @@ DownloadedTexture downloadedTexture = new DownloadedTexture(resourceLocation);
 ### Including BasicPlayer of JavaLayer
 As BasicPlayer uses a version of slf4j that is incompatiblt with the one used in the minecraft client
 and as BasicPlayer needed some adjustments anyways the source was directly included in `com.ilovemusic.labymod.player`.
+
+### Using Moshi converter for retrofit in 1.8
+Due to some heavy version gaps in 1.8 I was forced to use moshi instead of Gson as a retrofit converter.
+I also considered jackson but dropped it due to the commons signature and meta entry difficulties as long as 
+some weird missing classes.
