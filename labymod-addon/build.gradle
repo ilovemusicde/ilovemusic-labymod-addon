@@ -9,8 +9,9 @@ configurations {
 
 dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
-    provided group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'
-    provided 'com.squareup.retrofit2:retrofit:2.6.0'
-    provided 'com.squareup.retrofit2:converter-gson:2.6.0'
-    implementation 'com.google.inject:guice:4.2.2'
+    compile group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'
+    compile 'com.squareup.retrofit2:retrofit:2.6.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.6.0'
+    // https://mvnrepository.com/artifact/javax.inject/javax.inject
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
 }

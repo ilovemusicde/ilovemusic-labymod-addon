@@ -1,6 +1,5 @@
 package com.ilovemusic.labymod;
 
-import com.google.common.base.Preconditions;
 import com.ilovemusic.labymod.player.BasicPlayer;
 import com.ilovemusic.labymod.player.BasicPlayerException;
 import java.io.IOException;
@@ -50,7 +49,6 @@ public final class MusicPlayer extends Observable {
   }
 
   public synchronized void play(URL url) {
-    Preconditions.checkNotNull(url);
     try {
       basicPlayer.stop();
       basicPlayer.open(url.openStream());
