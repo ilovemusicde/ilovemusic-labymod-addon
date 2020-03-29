@@ -34,8 +34,8 @@ repositories {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 minecraft {
-    version = "1.12.2-14.23.0.2512"
-    mappings = "stable_39"
+    version = System.getenv("FORGE_VERSION") ?: "1.12.2-14.23.0.2512"
+    mappings = System.getenv("FORGE_MAPPINGS") ?: "stable_39"
     runDir = "run"
 }
 
