@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import net.labymod.gui.elements.Tabs;
 import net.labymod.utils.DrawUtils;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
 import net.minecraft.client.gui.GuiPageButtonList.GuiResponder;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
@@ -38,6 +40,30 @@ public final class ILoveMusicGuiScreen extends GuiScreen implements Observer, Gu
     Tabs.initGuiScreen(this.buttonList, this);
     createGuiElements();
     subscribeMusicState();
+  }
+
+  private static final long UPDATE_INTERVAL = 20 * 20;
+  private long ticksAlive;
+
+  @Override
+  public void updateScreen() {
+    ticksAlive++;
+    if (ticksAlive % UPDATE_INTERVAL == 0) {
+      updateStreams();
+    }
+  }
+
+  private void updateStreams() {
+    streamRepository.findAll().thenAccept(streams -> {
+      for (int i = 0; i < streamSelection.getSize(); i++) {
+        IGuiListEntry listEntry = streamSelection.getListEntry(0);
+        if (listEntry instanceof StreamSelectionListEntry) {
+          Stream stream = ((StreamSelectionListEntry) listEntry).stream();
+          Optional<Stream> first = streams.stream().filter(stream1 -> stream1.id() == stream.id()).findFirst();
+          first.ifPresent(((StreamSelectionListEntry) listEntry)::setStream);
+        }
+      }
+    });
   }
 
   private void createGuiElements() {

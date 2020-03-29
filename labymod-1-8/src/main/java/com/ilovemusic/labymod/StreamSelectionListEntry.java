@@ -21,16 +21,24 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   private static MusicPlayer musicPlayer;
   private final StreamSelectionListGui parent;
   private final Minecraft mc = Minecraft.getMinecraft();
-  private final ResourceLocation textureKey;
-  private final Stream stream;
+  private ResourceLocation textureKey;
+  private Stream stream;
 
   public StreamSelectionListEntry(
       StreamSelectionListGui parent,
       Stream stream
   ) {
     this.parent = parent;
+    setStream(stream);
+  }
+
+  public Stream stream() {
+    return stream;
+  }
+
+  public void setStream(Stream stream) {
     this.stream = stream;
-    this.textureKey = new ResourceLocation("com/ilovemusic/labymod",
+    this.textureKey = new ResourceLocation("ilovemusic",
         "streampicture." + stream.id() + "." + stream.cover().hashCode());
   }
 
