@@ -5,9 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.ilovemusic.labymod.ilovemusic.ILoveMusicClient;
-import com.ilovemusic.labymod.ilovemusic.ILoveMusicGuiScreen;
-import com.ilovemusic.labymod.ilovemusic.StreamSelectionListEntry;
 import com.ilovemusic.labymod.player.BasicPlayer;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
@@ -68,7 +65,6 @@ public final class ILoveMusicModule extends AbstractModule {
   Gson provideGson() {
     return new GsonBuilder()
         .setPrettyPrinting()
-        .setLenient()
         .create();
   }
 

@@ -1,4 +1,4 @@
-package com.ilovemusic.labymod.ilovemusic;
+package com.ilovemusic.labymod;
 
 import com.ilovemusic.labymod.MusicPlayer;
 import java.io.IOException;

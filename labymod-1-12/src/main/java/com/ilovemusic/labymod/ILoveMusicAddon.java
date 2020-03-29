@@ -2,10 +2,7 @@ package com.ilovemusic.labymod;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.ilovemusic.labymod.ilovemusic.ILoveMusicGuiScreen;
-import com.ilovemusic.labymod.ilovemusic.StreamRepository;
 import java.util.List;
-import javax.inject.Inject;
 import net.labymod.api.LabyModAddon;
 import net.labymod.gui.elements.Tabs;
 import net.labymod.settings.elements.SettingsElement;

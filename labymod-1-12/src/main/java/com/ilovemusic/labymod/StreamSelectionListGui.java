@@ -1,4 +1,4 @@
-package com.ilovemusic.labymod.ilovemusic;
+package com.ilovemusic.labymod;
 
 import java.util.List;
 import net.minecraft.client.Minecraft;

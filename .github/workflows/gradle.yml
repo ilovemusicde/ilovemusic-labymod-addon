@@ -22,14 +22,11 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-      env:
-        FORGE_VERSION: 1.8.9-11.15.1.1777
-        FORGE_MAPPINGS: stable_20
     - name: Upload laby mod mod artifact
       uses: actions/upload-artifact@v2-preview
       with:
-        name: ilovemusic-labymod-addon
-        path: build/libs/*
+        name: ilovemusic-labymod-addon-1.8
+        path: labymod-1-8/build/libs/*
   build-labymod-1-12:
     runs-on: ubuntu-latest
     steps:
@@ -42,11 +39,8 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
-        env:
-          FORGE_VERSION: 1.12.2-14.23.0.2512
-          FORGE_MAPPINGS: stable_39
       - name: Upload laby mod mod artifact
         uses: actions/upload-artifact@v2-preview
         with:
-          name: ilovemusic-labymod-addon
-          path: build/libs/*
+          name: ilovemusic-labymod-addon-1.12
+          path: labymod-1-12/build/libs/*

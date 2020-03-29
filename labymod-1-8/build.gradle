@@ -1,0 +1,79 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '2.1-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+minecraft {
+    version = System.getenv("FORGE_VERSION") ?: "1.8.9-11.15.1.1777"
+    mappings = System.getenv("FORGE_MAPPINGS") ?: "stable_20"
+    runDir = "run"
+}
+
+repositories {
+    google()
+    mavenLocal()
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    // LabyMod API from libs folder
+    implementation name: 'lm_api_mc1.8.9', ext: 'jar'
+    provided project(':labymod-addon')
+
+    provided group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'
+    provided 'com.squareup.retrofit2:retrofit:2.6.0'
+    provided 'com.squareup.retrofit2:converter-gson:2.6.0'
+    provided 'com.google.inject:guice:4.2.2'
+}
+
+jar {
+    from configurations.provided.asFileTree.files.collect {
+        zipTree(it)
+    }
+}
+
+configurations {
+    provided
+    compile.extendsFrom(provided)
+}
+
+reobf {
+    jar {
+        useNotchSrg()
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+

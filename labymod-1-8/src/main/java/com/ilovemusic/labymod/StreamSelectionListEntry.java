@@ -1,6 +1,5 @@
-package com.ilovemusic.labymod.ilovemusic;
+package com.ilovemusic.labymod;
 
-import com.ilovemusic.labymod.MusicPlayer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   ) {
     this.parent = parent;
     this.stream = stream;
-    this.textureKey = new ResourceLocation("ilovemusic",
+    this.textureKey = new ResourceLocation("com/ilovemusic/labymod",
         "streampicture." + stream.id() + "." + stream.cover().hashCode());
   }
 
@@ -42,15 +41,13 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   }
 
   @Override
-  public void updatePosition(int slotIndex, int x, int y, float partialTicks) {
+  public void setSelected(int i, int i1, int i2) {
 
   }
 
   @Override
-  public void drawEntry(
-      int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
-      int mouseY, boolean isHovered, float partialTicks
-  ) {
+  public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX,
+      int mouseY, boolean isHovered) {
     drawStreamName(x, y);
     drawStreamArtistAndSong(x, y, listWidth);
     drawStreamIcon(x, y);
@@ -58,14 +55,14 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   }
 
   private void drawStreamArtistAndSong(int x, int y, int listWidth) {
-    int fontHeigth = mc.fontRenderer.FONT_HEIGHT;
-    List<String> titleLines = mc.fontRenderer.listFormattedStringToWidth(
+    int fontHeigth = mc.fontRendererObj.FONT_HEIGHT;
+    List<String> titleLines = mc.fontRendererObj.listFormattedStringToWidth(
         stream.artist() + " - " + stream.title(),
         listWidth - 32 - 2
     );
     for (int currentIndex = 0; currentIndex < titleLines.size(); currentIndex++) {
       String titelLine = titleLines.get(currentIndex);
-      mc.fontRenderer.drawString(
+      mc.fontRendererObj.drawString(
           titelLine,
           x + 32 + 3,
           y + 12 + fontHeigth * currentIndex,
@@ -75,7 +72,7 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   }
 
   private void drawStreamName(int x, int y) {
-    mc.fontRenderer.drawString(
+    mc.fontRendererObj.drawString(
         stream.name(),
         x + 32 + 3,
         y + 1,
@@ -84,12 +81,12 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   }
 
   private void loadImage() {
-    if (LOADED_TEXTURES.contains(textureKey.getPath())) {
+    if (LOADED_TEXTURES.contains(textureKey.getResourcePath())) {
       return;
     }
     try {
       prepareImage();
-      LOADED_TEXTURES.add(textureKey.getPath());
+      LOADED_TEXTURES.add(textureKey.getResourcePath());
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }

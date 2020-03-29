@@ -1,2 +1,6 @@
 rootProject.name = 'ilovemusic-labymod-addon'
 
+include 'labymod-addon'
+include 'labymod-1-8'
+include 'labymod-1-12'
+

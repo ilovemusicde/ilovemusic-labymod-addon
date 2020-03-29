@@ -1,16 +1,3 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: System.getenv("FORGE_VERSION") != null ? (System.getenv("FORGE_VERSION").startsWith("1.8") ? '2.1-SNAPSHOT' : '2.3-SNAPSHOT') : '2.3-SNAPSHOT'
-    }
-}
-
 plugins {
     id 'java'
 }
@@ -24,72 +11,17 @@ targetCompatibility = 1.8
 srcCompat = JavaVersion.VERSION_1_8
 targetCompat = JavaVersion.VERSION_1_8
 
-repositories {
-    google()
-    mavenLocal()
-    mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
-}
+allprojects {
+    apply plugin: 'java'
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-minecraft {
-    version = System.getenv("FORGE_VERSION") ?: "1.12.2-14.23.0.2512"
-    mappings = System.getenv("FORGE_MAPPINGS") ?: "stable_39"
-    runDir = "run"
-}
-
-dependencies {
-    // LabyMod API from libs folder
-    implementation name: 'lm_api_mc1.8.9', ext: 'jar'
-
-    // JLayer is used for playing music
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
-    provided group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'
-
-
-    // Retrofit for fetching streams from ILoveMusic REST API
-    provided 'com.squareup.retrofit2:retrofit:2.6.0'
-    provided 'com.squareup.retrofit2:converter-gson:2.6.0'
-
-    // Google Guice is used for dependency injection
-    provided 'com.google.inject:guice:4.2.2'
-}
-
-jar {
-    from configurations.provided.asFileTree.files.collect {
-        zipTree(it)
-    }
-}
-
-configurations {
-    provided
-    compile.extendsFrom(provided)
-}
-
-reobf {
-    jar {
-        useNotchSrg()
-    }
-}
-
-test {
-    useJUnitPlatform()
-}
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version': project.version, 'mcversion': project.minecraft.version
+    repositories {
+        google()
+        mavenLocal()
+        mavenCentral()
     }
 
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+    compileJava {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 }
