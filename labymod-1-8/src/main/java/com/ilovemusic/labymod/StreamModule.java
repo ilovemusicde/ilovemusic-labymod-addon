@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.labymod.ingamegui.ModuleCategory;
 import net.labymod.ingamegui.ModuleCategoryRegistry;
-import net.labymod.ingamegui.moduletypes.SimpleModule;
 import net.labymod.ingamegui.moduletypes.SimpleTextModule;
 import net.labymod.settings.elements.ControlElement.IconData;
 import net.labymod.utils.Material;
@@ -53,6 +52,7 @@ public final class StreamModule extends SimpleTextModule {
   }
 
   private static final String[] KEYS = new String[] {
+      "Channel",
       "Interpret",
       "Song"
   };
@@ -61,6 +61,7 @@ public final class StreamModule extends SimpleTextModule {
   public String[] getValues() {
     Optional<Stream> currentStream = musicPlayer.currentStream();
     return new String[] {
+        currentStream.map(Stream::name).orElse(NO_CONTENT),
         currentStream.map(Stream::artist).orElse(NO_CONTENT),
         currentStream.map(Stream::title).orElse(NO_CONTENT)
     };
