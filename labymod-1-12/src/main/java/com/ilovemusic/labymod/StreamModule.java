@@ -32,6 +32,11 @@ public final class StreamModule extends SimpleTextModule {
   }
 
   @Override
+  public String getControlName() {
+    return "ILoveMusic";
+  }
+
+  @Override
   public String getSettingName() {
     return "ILoveMusic";
   }
