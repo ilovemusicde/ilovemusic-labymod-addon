@@ -106,7 +106,7 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
       int relativeY
   ) {
     parent.setSelected(this);
-    musicPlayer.play(stream.streamUrl());
+    musicPlayer.play(stream);
     return false;
   }
 

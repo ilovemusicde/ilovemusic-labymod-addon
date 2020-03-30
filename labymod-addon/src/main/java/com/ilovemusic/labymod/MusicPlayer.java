@@ -5,6 +5,7 @@ import com.ilovemusic.labymod.player.BasicPlayerException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -12,10 +13,15 @@ import javax.inject.Singleton;
 public final class MusicPlayer extends Observable {
   private final BasicPlayer basicPlayer;
   private double currentVolume = 0.5;
+  private Stream currentStream;
 
   @Inject
   private MusicPlayer(BasicPlayer basicPlayer) {
     this.basicPlayer = basicPlayer;
+  }
+
+  public Optional<Stream> currentStream() {
+    return Optional.ofNullable(currentStream);
   }
 
   public synchronized void play() {
@@ -48,12 +54,13 @@ public final class MusicPlayer extends Observable {
     }
   }
 
-  public synchronized void play(URL url) {
+  public synchronized void play(Stream stream) {
     try {
       basicPlayer.stop();
-      basicPlayer.open(url.openStream());
+      basicPlayer.open(stream.streamUrl().openStream());
       basicPlayer.play();
       basicPlayer.setGain(currentVolume);
+      currentStream = stream;
       this.setChanged();
       this.notifyObservers();
     } catch (BasicPlayerException | IOException e) {
