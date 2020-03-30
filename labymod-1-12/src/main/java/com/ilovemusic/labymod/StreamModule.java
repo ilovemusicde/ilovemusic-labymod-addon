@@ -22,6 +22,13 @@ public final class StreamModule extends SimpleTextModule {
   }
 
   @Override
+  public boolean isShown() {
+    return musicPlayer.currentStream().isPresent()
+        && musicPlayer.isPlaying()
+        && super.isShown();
+  }
+
+  @Override
   public IconData getIconData() {
     return new IconData(Material.NOTE_BLOCK);
   }
