@@ -4,20 +4,50 @@ import com.ilovemusic.labymod.player.BasicPlayer;
 import com.ilovemusic.labymod.player.BasicPlayerException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Observable;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 public final class MusicPlayer extends Observable {
+  private static final ScheduledExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
   private final BasicPlayer basicPlayer;
+  private final StreamRepository streamRepository;
   private double currentVolume = 0.5;
   private Stream currentStream;
 
   @Inject
-  private MusicPlayer(BasicPlayer basicPlayer) {
+  private MusicPlayer(
+      BasicPlayer basicPlayer,
+      StreamRepository streamRepository
+  ) {
     this.basicPlayer = basicPlayer;
+    this.streamRepository = streamRepository;
+    startUpdateTask();
+  }
+
+  private void startUpdateTask() {
+    EXECUTOR_SERVICE.scheduleAtFixedRate(this::updateStream, 0L, 30L, TimeUnit.SECONDS);
+  }
+
+  private void updateStream() {
+    if (currentStream == null) {
+      return;
+    }
+    streamRepository.findAll().thenAccept(streams -> {
+      for (Stream stream : streams) {
+        if (stream.id() == currentStream.id()) {
+          currentStream = stream;
+        }
+      }
+    });
   }
 
   public Optional<Stream> currentStream() {

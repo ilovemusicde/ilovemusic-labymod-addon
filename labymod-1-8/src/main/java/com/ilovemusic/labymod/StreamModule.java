@@ -1,6 +1,8 @@
 package com.ilovemusic.labymod;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.labymod.ingamegui.ModuleCategory;
@@ -17,7 +19,9 @@ public final class StreamModule extends SimpleTextModule {
   private final MusicPlayer musicPlayer;
 
   @Inject
-  private StreamModule(MusicPlayer musicPlayer) {
+  private StreamModule(
+      MusicPlayer musicPlayer
+  ) {
     this.musicPlayer = musicPlayer;
   }
 

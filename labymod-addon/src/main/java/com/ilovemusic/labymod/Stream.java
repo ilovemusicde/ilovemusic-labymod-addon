@@ -2,6 +2,7 @@ package com.ilovemusic.labymod;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 public final class Stream {
   private final int channel_id;
@@ -63,10 +64,27 @@ public final class Stream {
 
   public URL streamUrl() {
     try {
-      return new URL(stream_url.toString().replace("https://", "http://"));
+      return new URL(stream_url.replace("https://", "http://"));
     } catch (MalformedURLException e) {
       return null;
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Stream stream = (Stream) o;
+    return channel_id == stream.channel_id;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(channel_id);
   }
 
   @Override
