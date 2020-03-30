@@ -75,10 +75,8 @@ public final class MusicPlayer extends Observable {
 
   public void setVolume(double gain) {
     try {
-      basicPlayer.pause();
       currentVolume = gain;
       basicPlayer.setGain(gain);
-      basicPlayer.resume();
     } catch (BasicPlayerException e) {
       e.printStackTrace();
     }
