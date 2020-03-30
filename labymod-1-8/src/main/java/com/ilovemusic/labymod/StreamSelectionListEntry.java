@@ -1,27 +1,18 @@
 package com.ilovemusic.labymod;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import net.labymod.utils.DrawUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public final class StreamSelectionListEntry implements IGuiListEntry {
-  private final Logger log = LogManager.getLogger("ILoveMusic");
-  private static final List<String> LOADED_TEXTURES = new ArrayList<>();
-
+  @Inject
+  private static DrawUtils drawUtils;
   @Inject
   private static MusicPlayer musicPlayer;
   private final StreamSelectionListGui parent;
   private final Minecraft mc = Minecraft.getMinecraft();
-  private ResourceLocation textureKey;
   private Stream stream;
 
   public StreamSelectionListEntry(
@@ -38,14 +29,6 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
 
   public void setStream(Stream stream) {
     this.stream = stream;
-    this.textureKey = new ResourceLocation("ilovemusic",
-        "streampicture." + stream.id() + "." + stream.cover().hashCode());
-  }
-
-  public void prepareImage() throws MalformedURLException {
-    URL resourceLocation = new URL(stream.cover());
-    DownloadedTexture downloadedTexture = new DownloadedTexture(resourceLocation);
-    mc.getTextureManager().loadTexture(textureKey, downloadedTexture);
   }
 
   @Override
@@ -59,7 +42,6 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
     drawStreamName(x, y);
     drawStreamArtistAndSong(x, y, listWidth);
     drawStreamIcon(x, y);
-    loadImage();
   }
 
   private void drawStreamArtistAndSong(int x, int y, int listWidth) {
@@ -88,18 +70,6 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
     );
   }
 
-  private void loadImage() {
-    if (LOADED_TEXTURES.contains(textureKey.getResourcePath())) {
-      return;
-    }
-    try {
-      prepareImage();
-      LOADED_TEXTURES.add(textureKey.getResourcePath());
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
-  }
-
   @Override
   public boolean mousePressed(
       int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX,
@@ -118,9 +88,6 @@ public final class StreamSelectionListEntry implements IGuiListEntry {
   }
 
   private void drawStreamIcon(int x, int y) {
-    mc.getTextureManager().bindTexture(textureKey);
-    GlStateManager.enableBlend();
-    Gui.drawModalRectWithCustomSizedTexture(x, y, 0f, 0f, 32, 32, 32, 32);
-    GlStateManager.disableBlend();
+    drawUtils.drawImageUrl(stream.cover(), x, y, 240, 240, 32, 32);
   }
 }
