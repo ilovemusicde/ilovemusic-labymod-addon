@@ -34,15 +34,6 @@ JavaLayer is a library by JavaZoom for decoding and playing mpeg sound. It has s
 - Volume Management is ugly and has to be done in the gui extension
 - It's required to be in classpath as an external library
 
-### DownloadedTexture
-I had to write a custom way of integrating textures. It's called a downloaded texture and as the name 
-indicated is downloaded via internet. It takes an URL as a resource location and is really easy to 
-use:
-```java
-URL resourceLocation = new URL(myUrl);
-DownloadedTexture downloadedTexture = new DownloadedTexture(resourceLocation);
-```
-
 ### Including BasicPlayer of JavaLayer
 As BasicPlayer uses a version of slf4j that is incompatiblt with the one used in the minecraft client
 and as BasicPlayer needed some adjustments anyways the source was directly included in `com.ilovemusic.labymod.player`.
