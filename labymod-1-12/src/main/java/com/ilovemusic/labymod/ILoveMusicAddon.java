@@ -11,6 +11,7 @@ import net.labymod.settings.elements.ControlElement.IconData;
 import net.labymod.settings.elements.KeyElement;
 import net.labymod.settings.elements.SettingsElement;
 import net.labymod.utils.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -75,7 +76,11 @@ public final class ILoveMusicAddon extends LabyModAddon {
   @SubscribeEvent
   public void onTick(ClientTickEvent event) {
     toggleMusicCooldown--;
-    if (toggleMusicKey != -1 && Keyboard.isKeyDown(toggleMusicKey) && toggleMusicCooldown < 10) {
+    if (toggleMusicKey != -1
+        && Keyboard.isKeyDown(toggleMusicKey)
+        && toggleMusicCooldown < 10
+        && !Minecraft.getMinecraft().ingameGUI.getChatGUI().getChatOpen()
+    ) {
       toggleMusic();
       toggleMusicCooldown = 20;
     }
