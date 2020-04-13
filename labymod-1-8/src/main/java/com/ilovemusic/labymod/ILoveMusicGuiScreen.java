@@ -16,6 +16,7 @@ import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
 import net.minecraft.client.gui.GuiPageButtonList.GuiResponder;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
+import net.minecraft.client.gui.GuiSlider.FormatHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -120,7 +121,15 @@ public final class ILoveMusicGuiScreen extends GuiScreen implements Observer, Gu
         0,
         100,
         musicPlayer.getVolume() * 1000,
-        (id, name, value) -> String.valueOf((int) value)
+        new FormatHelper() {
+          public String getText(String text) {
+            return text;
+          }
+          @Override
+          public String getText(int i, String s, float value) {
+            return String.valueOf((int) value);
+          }
+        }
     );
   }
 
