@@ -1,9 +1,0 @@
-{
-  "uuid": "%uuid%",
-  "name": "ILoveMusicAddon",
-  "description": "Streaming ILoveMusic from LabyMod with ease.",
-  "author": "ILoveMusic",
-  "version": 1,
-  "category": 2,
-  "mainClass": "com.ilovemusic.labymod.ILoveMusicAddon"
-}
