@@ -15,7 +15,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 minecraft {
     version = System.getenv("FORGE_VERSION") ?: "1.8.9-11.15.1.1777"
-    mappings = System.getenv("FORGE_MAPPINGS") ?: "stable_20"
+    mappings = System.getenv("FORGE_MAPPINGS") ?: "stable_22"
     runDir = "run"
 }
 
