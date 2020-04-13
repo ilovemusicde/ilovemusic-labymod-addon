@@ -10,18 +10,6 @@ Simple LabyMod Addon for playing I Love Music in Minecraft.
 The CI build needs a few flags depending on the laby mod version we are building for. The 
 settings for 1.12 are used by default.
 
-#### LabyMod 1.8
-```text
-FORGE_VERSION=1.8.9-11.15.1.1777
-FORGE_MAPPINGS=stable_20
-```
-
-#### LabyMod 1.12
-```text
-FORGE_VERSION=1.12.2-14.23.0.2512
-FORGE_MAPPINGS=stable_39
-```
-
 ## Example
 
 ## Libraries & Design Decisions
