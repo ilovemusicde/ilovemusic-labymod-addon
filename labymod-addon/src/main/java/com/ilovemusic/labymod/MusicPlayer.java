@@ -17,7 +17,7 @@ public final class MusicPlayer extends Observable {
       .newSingleThreadScheduledExecutor();
   private final BasicPlayer basicPlayer;
   private final StreamRepository streamRepository;
-  private double currentVolume = 0.5;
+  private double currentVolume = 0.01;
   private Stream currentStream;
 
   @Inject
