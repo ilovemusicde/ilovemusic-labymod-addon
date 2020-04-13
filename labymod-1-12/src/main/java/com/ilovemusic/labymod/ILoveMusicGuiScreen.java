@@ -122,7 +122,7 @@ public final class ILoveMusicGuiScreen extends GuiScreen implements Observer, Gu
         "Lautstärke",
         0,
         100,
-        musicPlayer.getVolume() * 100,
+        musicPlayer.getVolume() * 1000,
         (id, name, value) -> String.valueOf((int) value)
     );
   }
@@ -208,7 +208,7 @@ public final class ILoveMusicGuiScreen extends GuiScreen implements Observer, Gu
 
   @Override
   public void setEntryValue(int id, float value) {
-    musicPlayer.setVolume((value / 100));
+    musicPlayer.setVolume((value / 1000f));
   }
 
   @Override
